@@ -1,11 +1,11 @@
-on: [push]
+on: [push, pull_request]
 name: Test
 
 jobs:
   test:
     strategy:
       matrix:
-        go-version: [1.13.x]
+        go-version: [1.12.x, 1.13.x]
         platform: [ubuntu-latest, macos-latest, windows-latest]
       fail-fast: false
     runs-on: ${{ matrix.platform }}
@@ -75,3 +75,8 @@ jobs:
       run: |
         $Env:path += ";C:\Users\runneradmin\go\bin"
         go test -race -v ./...
+
+    - name: Cross compile for plan9
+      if: matrix.platform == 'ubuntu-latest'
+      run: GOOS=plan9 go build ./...
+      shell: bash
