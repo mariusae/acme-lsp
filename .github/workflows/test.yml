@@ -79,5 +79,5 @@ jobs:
     - name: Cross compile for plan9
       if: matrix.platform == 'ubuntu-latest'
       env:
-        GOOS=plan9
+        GOOS: plan9
       run: go build ./...
