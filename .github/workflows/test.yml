@@ -5,8 +5,8 @@ jobs:
   test:
     strategy:
       matrix:
-        go-version: [1.12.x, 1.13.x]
-        platform: [ubuntu-latest, macos-latest, windows-latest]
+        go-version: [1.13.x]
+        platform: [ubuntu-latest]
       fail-fast: false
     runs-on: ${{ matrix.platform }}
     env:
@@ -78,5 +78,6 @@ jobs:
 
     - name: Cross compile for plan9
       if: matrix.platform == 'ubuntu-latest'
-      run: GOOS=plan9 go build ./...
-      shell: bash
+      env:
+        GOOS=plan9
+      run: go build ./...
